@@ -1,0 +1,18 @@
+BST a full
+
+TablasHash -> todo sin redispersion sobre todo el add y el remove
+
+Los filtrados son relevantes junto con el add, sacar y el remove de monticulos
+
+
+
+NADA DE BUCLES FOR PARA RECORRER EN TABLAS HASH
+
+
+------------------------------------------------------------
+
+BST --
+TABLAS HASH (REVISAR LOS METODOS BASICOS) --
+MONTICULOS (SOBRE TODO FILTRADOS) --
+
+
