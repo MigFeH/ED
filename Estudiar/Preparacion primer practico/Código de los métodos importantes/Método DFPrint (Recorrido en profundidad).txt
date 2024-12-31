@@ -1,0 +1,68 @@
+	public String recorridoProfundidad(T nodoOrigen)
+	{
+		if(!existNode(nodoOrigen))
+		{
+			return "";
+		}
+		
+		boolean[] visitados = inicializar_visitados_recorridoProfundidad();
+		ArrayList<T> candidatos = new ArrayList<>();
+		ArrayList<T> s = new ArrayList<>();
+		
+		// agregar el nodoOrigen a candidatos
+		candidatos.add(nodoOrigen);
+		
+		
+		while(candidatos.size() > 0) // mientras no esten todos vistados...
+		{
+			T nodo_candidato = candidatos.get(0);
+			
+			if(visitados[getNodeTG(nodo_candidato)]) // nodo visitado en candidatos se borra de candidatos
+			{
+				candidatos.remove(0);
+			} else
+			{
+				visitados[getNodeTG(nodo_candidato)] = true;
+				
+				candidatos.remove(0);
+				
+				s.add(nodo_candidato);
+				
+				int posicion = 0;
+				
+				for(int i = 0; i < numNodes; i++)
+				{
+					if(getEdgeTG(nodo_candidato, nodes[i]) != -1 && !visitados[i] && !nodo_candidato.equals(nodes[i])) // si hay eje entre el candidato y el nodo; el nodo no esta visitado; y no es el candidato...
+					{
+						candidatos.add(posicion, nodes[i]);
+						posicion++;
+					}
+				}
+			}
+		}
+		
+		return recorridoProfundidadToString(s);
+		
+	}
+
+	private String recorridoProfundidadToString(ArrayList<T> s)
+	{
+		String res = "";
+		for(int i = 0; i < s.size(); i++)
+		{
+			res = res + s.get(i) + "\t";
+		}
+		return res;
+	}
+
+	private boolean[] inicializar_visitados_recorridoProfundidad()
+	{
+		boolean[] res = new boolean[numNodes];
+		
+		for(int i = 0; i < numNodes; i++)
+		{
+			res[i] = false;
+		}
+		
+		return res;
+	}

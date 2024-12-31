@@ -1,0 +1,50 @@
+	public double excentricidad()
+	{
+		double res = Inf;
+		
+		// se aplica Floyd (distancia de coste minima de cada nodo al resto de nodos)	
+		
+		// buscamos en A el peso maximo de cada columna
+		double[] maximos = new double[numNodes];
+		
+		for(int i = 0; i < numNodes; i++)
+		{
+			double[] valoresColumna = new double[numNodes];
+			
+			for(int j = 0; j < numNodes; j++)
+			{
+				if(i != j) // no computamos sobre la diagonal!!!
+				{
+					valoresColumna[j] = getFloydA()[j][i];
+				}
+			}
+			
+			maximos[i] = buscaMaximoExcentricidad(valoresColumna);
+		}
+		
+		// buscamos en maximos el valor mas bajo y retornamos dicho valor
+		for(int i = 0; i < numNodes; i++)
+		{
+			if(maximos[i] < res)
+			{
+				res = maximos[i];
+			}
+		}
+		
+		return res;
+	}
+
+	private double buscaMaximoExcentricidad(double[] valoresColumna)
+	{
+		double res = 0;
+		
+		for(int i = 0; i < numNodes; i++)
+		{
+			if(valoresColumna[i] > res)
+			{
+				res = valoresColumna[i];
+			}
+		}
+		
+		return res;
+	}

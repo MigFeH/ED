@@ -1,0 +1,58 @@
+	/**
+	 * Devuelve el camino de coste minimo que se pasan como parametro usando la
+	 * matriz P de Floyd
+	 * 
+	 * Si el nodo origen es igual al nodo destino: Origen<tab> Si no hay camino
+	 * entre el nodo origen y el nodo destino: Origen<tab>(Infinito)<tab>Destino Si
+	 * hay camino:
+	 * Origen<tab>(coste0)<tab>Intermedio1<tab>(coste1)...IntermedioN<tab>(costeN)<tab>Destino<tab>
+	 */
+	public String path(T origen, T destino)
+	{
+		if (!existNode(origen) || !existNode(destino))
+		{
+			return "";
+		}
+
+		String res = origen + "";
+
+		if (getFloydA()[getNodeTG(origen)][getNodeTG(destino)] == Inf) // no hay camino entre origen y destino
+		{
+			return res + "\t(" + Inf + ")\t" + destino;
+		}
+
+		if (origen.equals(destino)) {
+			return res;
+		}
+
+		return res + recursivePath(origen, destino) + destino;
+	}
+
+	private String recursivePath(T origen, T destino)
+	{
+		if (origen.equals(destino)) {
+			return "\t";
+		}
+
+		int pos_nodo_origen = getNodeTG(origen);
+		int pos_nodo_destino = getNodeTG(destino);
+
+		// hay camino entre origen y destino
+
+		int pos_nodo_intermedio = getFloydP()[pos_nodo_origen][pos_nodo_destino];
+
+		if (pos_nodo_intermedio != -1) // hay nodo intermedio...
+		{
+			T nodo_intermedio = nodes[pos_nodo_intermedio];
+			double coste = getFloydA()[pos_nodo_origen][pos_nodo_intermedio];
+
+			if (coste != Inf) // hay camino al nodo intermedio
+			{
+				return recursivePath(origen, nodo_intermedio) + nodo_intermedio
+						+ recursivePath(nodo_intermedio, destino);
+			}
+
+		}
+
+		return "\t(" + getFloydA()[pos_nodo_origen][pos_nodo_destino] + ")\t"; // no hay nodo intermedio, retornamos el coste del origen al destino de la iteracion respectiva (el origen o destino puede ser un nodo intermedio 											// anterior!)...
+	}

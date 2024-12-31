@@ -1,0 +1,12 @@
+	public double minCostPath(T origen, T destino)
+	{
+		if (!existNode(origen)) {
+			throw new IllegalArgumentException("El elemento " + origen + " no existe en la estructura");
+		} else if (!existNode(destino)) {
+			throw new IllegalArgumentException("El elemento " + destino + " no existe en la estructura");
+		}
+
+		// tras ejecutar floyd (ya se hace en los test antes de invocar este metodo)
+		// buscamos en A_floyd el coste entre el nodo origen y destino
+		return getFloydA()[getNodeTG(origen)][getNodeTG(destino)];
+	}

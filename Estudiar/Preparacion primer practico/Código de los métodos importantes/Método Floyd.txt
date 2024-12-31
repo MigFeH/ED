@@ -1,0 +1,60 @@
+	public boolean floyd() {
+		if (numNodes == 0) // grafo vacio...
+		{
+			return false;
+		}
+
+		this.A_floyd = inicializar_A_Floyd(); // matriz A de pesos de un nodo a otro
+		this.P_floyd = inicializar_P_Floyd(); // matriz P con el indice del nodo desde el que accedemos a otro
+
+		for (int a = 0; a < numNodes; a++) // para cada nodo de nodos...
+		{
+			for (int i = 0; i < numNodes; i++) {
+				for (int j = 0; j < numNodes; j++) {
+					if (i == j) {
+						continue;
+					}
+					if (A_floyd[i][j] > A_floyd[i][a] + A_floyd[a][j]) {
+						A_floyd[i][j] = A_floyd[i][a] + A_floyd[a][j];
+						P_floyd[i][j] = a;
+					}
+				}
+			}
+		}
+		return true;
+	}
+
+	private int[][] inicializar_P_Floyd() {
+		int[][] res = new int[numNodes][numNodes];
+
+		for (int i = 0; i < numNodes; i++) {
+			for (int j = 0; j < numNodes; j++) {
+				res[i][j] = -1; // se inicializa con todo a -1
+			}
+		}
+
+		return res;
+	}
+
+	private double[][] inicializar_A_Floyd() {
+		double[][] res = new double[numNodes][numNodes];
+
+		for (int i = 0; i < numNodes; i++) {
+			for (int j = 0; j < numNodes; j++) {
+				if (i == j) // el peso de ir de un nodo al mismo es 0
+				{
+					res[i][j] = 0;
+				} else {
+					if (!existEdge(nodes[i], nodes[j])) // si no hay eje entre un nodo y otro --> infinito
+					{
+						res[i][j] = Inf;
+					} else // si hay eje entre los dos nodos --> peso del eje que los une
+					{
+						res[i][j] = getEdgeTG(nodes[i], nodes[j]);
+					}
+				}
+			}
+		}
+
+		return res;
+	}

@@ -1,0 +1,21 @@
+	public double Excentricidad2(T nodo)
+	{
+		// se aplica Floyd antes (lo hacemos en los test)
+		double res = 0;
+		
+		// la excentricidad de un nodo es la mayor distancia entre ese nodo y el resto de nodos del grafo
+		// para ello se miran los valores de la columna del nodo pasado por parametro en la matriz A de Floyd
+		
+		for(int i = 0; i < numNodes; i++)
+		{
+			if(i != getNodeTG(nodo))
+			{
+				if(getFloydA()[i][getNodeTG(nodo)] > res)
+				{
+					res = getFloydA()[i][getNodeTG(nodo)];
+				}
+			}
+		}
+		
+		return res;
+	}

@@ -1,0 +1,56 @@
+	@SuppressWarnings("unchecked")
+	public ArrayList<String> prim(T nodoOrigen)
+	{
+		ArrayList<String> res = new ArrayList<>();
+		
+		// partiendo de un nodo buscamos su eje con el menor coste que conecte con otro nodo no visitado
+		boolean[] visitados = inicializar_visitados_prim();
+		
+		// ponemos a visitado el nodoOrigen
+		visitados[getNodeTG(nodoOrigen)] = true;
+		
+		T[] nodosInicio = (T[]) new Object[numNodes];
+		
+		for(int i = 0; i < numNodes-1; i++)
+		{
+			nodosInicio[i] = nodoOrigen;
+			
+			// buscar el eje con origen el nodoOrigenDeLaIteracion y destino cualquiera accesible desde el nodo hablado
+			T nodoComienzo = nodoOrigen;
+			
+			T nodoFinal = buscaNodosDestino(nodoComienzo, visitados);
+			
+			String texto_comienzo = nodoComienzo + "";
+			String texto_final = nodoFinal + "";
+			
+			res.add(texto_comienzo + texto_final);
+			
+			visitados[getNodeTG(nodoFinal)] = true;
+			
+			nodoOrigen = nodoFinal;
+		}
+		
+		return res;
+	}
+
+	private T buscaNodosDestino(T nodoComienzo, boolean[] visitados)
+	{
+		T res = null;
+		double max = Inf;
+		
+		for(int i = 0; i < numNodes; i++)
+		{
+			if(existEdge(nodoComienzo, getNodes()[i]) && getEdgeTG(nodoComienzo, nodes[i]) < max && !visitados[i])
+			{
+				res = nodes[i];
+				max = getEdgeTG(nodoComienzo, nodes[i]);
+			}
+		}
+		
+		return res;
+	}
+
+	private boolean[] inicializar_visitados_prim()
+	{
+		return new boolean[numNodes];
+	}

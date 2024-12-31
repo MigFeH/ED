@@ -1,0 +1,53 @@
+	public T centroGrafo()
+	{
+		T res = null;
+		double min = Inf;
+		
+		// Se aplica Floyd (distancia de coste minima de cada nodo al resto de nodos)
+		
+		// El centro de un grafo es el nodo de excentricidad minima 
+		
+		double[] maximos = new double[numNodes];
+		
+		for(int i = 0; i < numNodes; i++)
+		{
+			double[] valoresColumna = new double[numNodes];
+			
+			for(int j = 0; j < numNodes; j++)
+			{
+				if(i != j) // no computamos con la diagonal!!!
+				{
+					valoresColumna[j] = getFloydA()[j][i];
+				}
+			}
+			
+			maximos[i] = buscaMaximoExcentricidad(valoresColumna);
+		}
+		
+		for(int i = 0; i < numNodes; i++)
+		{
+			if(maximos[i] < min)
+			{
+				res = nodes[i];
+				min = maximos[i];
+			}
+		}
+		
+		return res;
+	}
+
+	
+	private double buscaMaximoExcentricidad(double[] valoresColumna)
+	{
+		double res = 0;
+		
+		for(int i = 0; i < numNodes; i++)
+		{
+			if(valoresColumna[i] > res)
+			{
+				res = valoresColumna[i];
+			}
+		}
+		
+		return res;
+	}

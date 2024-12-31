@@ -1,0 +1,126 @@
+	public DijkstraDataClass dijkstra2(T nodoOrigen)
+	{
+		// camino de coste minimo de un nodoOrigen al resto de nodos
+		
+		if(!existNode(nodoOrigen))
+		{
+			throw new IllegalArgumentException("Nodo no existente en el grafo");
+		}
+		if(nodoOrigen == null)
+		{
+			throw new IllegalArgumentException("Nodo null");
+		}
+		
+		double[] D_dijkstra = inicializar_D_Dijkstra2(nodoOrigen); // almacena los costes
+		int[] P_dijkstra = inicializar_P_Dijkstra2(nodoOrigen); // almacena los indices de los nodos desde los que se accede a cada nodo
+																// SE INICIALIZA CON -1 LAS CASILLAS DE LOS NODOS A LOS QUE NO SE LLEGA 
+																// DESDE EL NODO ORIGEN Y EL RESTO DE CASILLAS A LAS QUE SI SON ACCESIBLES 
+																// DIRECTAMENTE DESDE NODO ORIGEN LAS INICIALIZAMOS CON EL INDICE DEL NODO ORIGEN
+		
+		ArrayList<T> S = new ArrayList<>();
+		boolean[] visitados = inicializar_visitados_dijkstra2();
+		
+		S.add(nodoOrigen);
+		visitados[getNodeTG(nodoOrigen)] = true;
+		
+		
+		while(!isAllVisited(visitados))
+		{
+			// Paso 2: buscar un nodo w perteneciente a S-nodos tal que su D[w] sea minimo
+			T nodo_pivote = buscar_Pivote_Dijkstra2(D_dijkstra, visitados);
+			int index_nodo_pivote = getNodeTG(nodo_pivote);
+			
+			// lo agregamos a S y lo marcamos como visitado
+			S.add(nodo_pivote);
+			visitados[index_nodo_pivote] = true;
+			
+			// Paso 3: para un nodo m de nodos-S calcular...
+			for(int i = 0; i < numNodes; i++)
+			{
+				if(!visitados[i]) // si no es un nodo pivote(no esta visitado)
+				{
+					int index_nodo_m = i;
+					
+					// d[m] --> min(d[m], d[pivote] + weights[pivote][m])
+					if(D_dijkstra[index_nodo_pivote] + getWeights()[index_nodo_pivote][index_nodo_m] < D_dijkstra[index_nodo_m])
+					{
+						D_dijkstra[index_nodo_m] = D_dijkstra[index_nodo_pivote] + getWeights()[index_nodo_pivote][index_nodo_m]; // actualizamos D
+						P_dijkstra[index_nodo_m] = index_nodo_pivote; // actualizamos P
+					}
+				}
+			}
+		}
+		
+		return new DijkstraDataClass(numNodes, getNodeTG(nodoOrigen), D_dijkstra, P_dijkstra);
+		
+	}
+	
+	private boolean isAllVisited(boolean[] visitados)
+	{
+		for(int i = 0; i < visitados.length; i++)
+		{
+			if(!visitados[i])
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private T buscar_Pivote_Dijkstra2(double[] d_dijkstra, boolean[] visitados)
+	{
+		T res = null;
+		double corte = Inf;
+		
+		for(int i = 0; i < d_dijkstra.length; i++)
+		{
+			if(!visitados[i] && d_dijkstra[i] <= corte) // nodo no visitado y coste mas bajo que el corte...
+			{
+				res = nodes[i];
+				corte = d_dijkstra[i];
+			}
+		}
+		
+		return res;
+	}
+
+	private boolean[] inicializar_visitados_dijkstra2()
+	{
+		return new boolean[numNodes];
+	}
+
+	private int[] inicializar_P_Dijkstra2(T nodoOrigen)
+	{
+		int[] res = new int[numNodes];
+
+		for (int i = 0; i < numNodes; i++)
+		{
+			if(getEdges()[getNodeTG(nodoOrigen)][i]) // hay eje del nodoOrigen a otro nodo...
+			{
+				res[i] = getNodeTG(nodoOrigen); // indice del nodoOrigen
+			} else // si no hay eje del nodoOrigen a otro nodo o el indice del nodoOrigen es el
+					// mismo que i...
+			{
+				res[i] = -1; // no se llega
+			}
+		}
+
+		return res;
+	}
+
+	private double[] inicializar_D_Dijkstra2(T nodoOrigen)
+	{
+		double[] res = new double[numNodes];
+		
+		for(int i = 0; i < numNodes; i++)
+		{
+			if(getNodeTG(nodoOrigen) == i)
+			{
+				res[i] = 0;
+				continue;
+			}
+			res[i] = getWeights()[getNodeTG(nodoOrigen)][i];
+		}
+		
+		return res;
+	}

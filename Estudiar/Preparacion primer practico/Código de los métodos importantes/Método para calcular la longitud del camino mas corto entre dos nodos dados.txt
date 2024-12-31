@@ -1,0 +1,113 @@
+	public double longitudCaminoMasCorto(T origen, T destino)
+	{
+		// se aplica Floyd antes de tal forma que la matriz A se inicializa con un 1 en aquellas 
+		// posiciones donde hay un valor de peso que no sea infinito. La diagonal sigue siendo cero
+		
+		if(!existNode(origen) || !existNode(destino))
+		{
+			throw new IllegalArgumentException("Nodo no existente en el grafo");
+		}
+		
+		if(origen.equals(destino))
+		{
+			return 0; // el coste de ir de un nodo a si mismo es de 0
+		}
+		
+		if(floydParaCaminoMasCorto())
+		{
+			int contador = 1;
+			
+			String res = path2(origen, destino);
+			
+			String[] palabras = res.split("\t");
+			
+			if(palabras[1].equals("(" + Inf + ")"))
+			{
+				return Inf;
+			}
+			
+			// va de dos en dos empezando en el 0 (0,2,4,...)
+			
+			for(int i = 0; i < palabras.length; i = i + 2)
+			{
+				contador++;
+			}
+			
+			return contador;
+		}
+		return -1;
+	}
+
+	private boolean floydParaCaminoMasCorto()
+	{
+		if(numNodes == 0)
+		{
+			return false;
+		}
+		
+		this.A_floyd = inicializar_A_floyd_camino_corto();
+		this.P_floyd = inicializar_P_floyd_camino_corto();
+		
+		for(int a = 0; a < numNodes; a++) // para cada nodo del grafo...
+		{
+			for(int i = 0; i < numNodes; i++)
+			{
+				for(int j = 0; j < numNodes; j++)
+				{
+					if(i != j && i != a && j != a) // no operamos con las diagonales; columna y fila distinta a la del pivote
+					{
+						// A[i][j] --> min(A[i][j], A[i][a] + A[a][j])
+						if(A_floyd[i][a] + A_floyd[a][j] < A_floyd[i][j])
+						{
+							A_floyd[i][j] = A_floyd[i][a] + A_floyd[a][j]; // actualizamos A
+							P_floyd[i][j] = a; // actualizamos P
+						}
+					}
+				}
+			}
+		}
+		return true;
+	}
+
+	private int[][] inicializar_P_floyd_camino_corto()
+	{
+		int[][] res = new int[numNodes][numNodes];
+		
+		for(int i = 0; i < numNodes; i++)
+		{
+			for(int j = 0; j < numNodes; j++)
+			{
+				res[i][j] = -1;
+			}
+		}
+		
+		return res;
+	}
+
+	private double[][] inicializar_A_floyd_camino_corto()
+	{
+		// inicializamos con un 1 en aquellas posiciones donde hay un valor de peso que no sea infinito
+		double[][] res = new double[numNodes][numNodes];
+		
+		for(int i = 0; i < numNodes; i++)
+		{
+			for(int j = 0; j < numNodes; j++)
+			{
+				if(i == j)
+				{
+					res[i][j] = 0; // la diagonal sigue siendo 0
+				} else
+				{
+					if(getWeights()[i][j] != Inf)
+					{
+						res[i][j] = 1;
+					} else
+					{
+						res[i][j] = Inf;
+					}
+				}
+			}
+		}
+		
+		return res;
+	}
