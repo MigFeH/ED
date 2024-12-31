@@ -1,0 +1,82 @@
+EXAMEN DE ED PRACTICO: 
+
+Nos dan la clase grafo hecha
+
+
+Pueden pedir Dijkstra o Floyd o recorrido en profundidad (este ultimo
+es menos probable) y que con ellos se hagan x cosas.
+
+A partir de Floyd calcular si hay un camino de un nodo a otro, o
+cuantos nodos son innaccesibles.
+
+El grado de un nodo, cuantos nodos fuente hay, cuantos nodos sumidero
+hay, etc
+
+El grado de un grafo, etc
+
+
+
+-- PRÁCTICA DE LABORATORIO --
+algoritmo de recorrido en profundidad:
+	array de VISITADOS (boolean) (inicializados a false todos) (cuando se añade un nodo a la lista de recorrido ponemos el nodo añadido a true)
+	lista de candidatos (arayList de nodos T)
+	lista de recorrido (arrayList de nodos T)
+
+
+	inicializar VISITADOS a false
+	añadir el nodo origen a CANDIDATOS
+
+
+
+	Mientras haya candidatos (que la longitud de candidatos sea mayor que 0) hacer:
+		
+		si NODO_CANDIDATO (obtenido de candidatos) ya está visitado:
+			borrar dicho nodo de CANDIDATOS
+		
+		sino:
+			añado el NODO_CANDIDATO a RECORRIDO
+			marco NODO_CANDIDATO como ya visitado en VISITADOS
+			borro NODO_CANDIDATO de CANDIDATOS
+			posicion = 0
+
+			Para todos los nodos del grafo hacer:
+				si hay un eje desde NODO_CANDIDATO hasta otro del grafo y ese otro nodo no ha sido visitado
+					añado el nuevo nodo del grafo a CANDIDATOS en la posición POSICIÓN (al principio de la lista)
+					POSICION++
+				fin_si
+			fin_para
+		fin_si
+	fin_mientras
+
+	devolver los nodos en forma de cadena
+	
+
+//// ----------------------------------------------------------------------------------------------------------------------------------------------- ////
+
+algoritmo de printPath (origen, destino) // PARA EJECUTAR ESTE MÉTODO ANTES SE TIENE QUE EJECUTAR FLOYD PARA TENER MODIFICADO A Y P ENTRE OTRAS COSAS
+	si origen.equals(destino) // si son iguales...
+		return origen
+
+	si no hay camino de origen a destino
+		return origen + (Infinity) + destino
+
+	// hay camino entre nodo origen y destino
+	return origen + printPathRecursivo(origen, destino) + destino
+	
+
+printPathRecursivo(origen, destino) // ESTE NO REQUIERE QUE SE EJECUTE FLOYD PORQUE YA LO HICIMOS EN PRINTPATH
+	obtener el nodo intermedio de origen a destino
+	
+	si no hay nodo intermedio...
+		return ""
+
+	sino..
+		return printPathRecursivo(origen, intermedio) + intermedio + printPathRecursivo(intermedio, destino)
+
+
+
+
+
+
+
+

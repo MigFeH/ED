@@ -1,0 +1,88 @@
+tutoria grupal de 2 a 3 el martes que viene
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-Exploración lineal (dispersion lineal):
+si(tipo == lineal):
+    // para la resolución de colisiones (esto es dispersion lineal)
+    (fhash(elemento)+intento)%tamaño; // intento inicializado a 1; El % es el resto de la división
+
+
+1.Exploración lineal:
+	f(x) = (fHash(x)+i) % B
+2.Exploración cuadrática:
+	f(x) = (fHash(x)+i^2) % B
+3.Dispersión doble:
+	f(x) = (fHash(x)+i*H2(x)) % B
+	H2(x) = R - fHash(x) % R
+	R -> ´número primo antecesor de B
+
+B = tamaño de la tabla
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+ADD en una tabla hash cerrada (elemento)
+  comprobaciones iniciales
+  
+  calcular la posición del elemento con el método fHash (posicion)
+  intento = 1
+  
+  mientras el estado sea lleno 
+	&& numero de veces calculando posiciones < tamaño tabla (y no hayamos superado un numero de iteraciones (para evitar un bucle infinito en el caso de que la tabla estuviera con todos los nodos en estado lleno) (esto lo conseguimos evitar con la dispersion)):
+    volver a calcular una nueva posición con el tipo de exploración
+    incrementar intento
+    
+  si(tipo == lineal):
+    // para la resolución de colisiones (esto es dispersion lineal)
+    (fhash(elemento)+intento)%tamaño; // intento inicializado a 1; El % es el resto de la división
+    
+
+  fin_mientras
+
+  si he intentado buscar posiciones tantas veces como el tamaño de la tabla entonces
+    devolver false
+  fin_si
+
+  si el estado no es lleno entonces
+    añado el elemento en esa posición
+    incrementar el número de elementos
+  fin_si
+
+
+
+FIND en una tabla hash cerrada (elemento)
+  comprobaciones iniciales
+
+  calcular la posición del elemento (posición)
+  intento = 1
+
+  mientras no hayamos encontrado el elemento ((el estado no sea vacío y el elemento no esté en esa posición) && el numero de veces calculando posiciones < tamaño tabla):
+    volver a calcular una nueva posición con el tipo de exploración
+    incrementar intento
+  fin_mientras
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+

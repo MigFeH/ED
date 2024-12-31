@@ -1,0 +1,80 @@
+-- Algoritmo del updateBFHeight --
+
+updateBFHeight() // actualiza el factor de balance y la altura del nodo que lo invoque
+	altura(null) = -1
+	
+
+	nueva_altura = max(altura_izquierda, altura_derecha) + 1
+	nuevo_BF = altura_derecha - altura_izquierda
+
+
+
+	10
+4		15
+
+------------------------
+
+	10
+		15
+
+------------------------
+
+	10
+4
+
+
+-------------------------------------------------------------------------------------------------------
+
+singleRightRotation --> FB(10) = 2 y FB(15) = 1
+
+FB(20) = 0
+FB(15) = 1
+FB(10) = 2
+
+
+
+10 (FB = 2)
+	
+	15 (FB = 1)
+	
+		20 (FB = 0)
+
+
+aux = nodo.derecha	15 (FB = 1)
+				20 (FB = 0)
+
+nodo.derecha = aux.izquierda	10 (FB = 2)
+				ACTUALIZAR LA ALTURA Y EL FB DE NODO
+				10 (FB = 0)
+
+aux.izquierda = nodo			15 (FB = 1)
+				10 (FB = 0)	20 (FB = 0)
+				ACTUALIZAR LA ALTURA Y EL FB DE AUX
+
+					15 (FB = 0)
+				10 (FB = 0)	20 (FB = 0)
+
+
+-------------------------------------------------------------------------------------------------------
+
+doubleRightRotation --> FB(10) = 2 y FB(15) = -1
+
+	10 (FB = 2)
+	
+		15 (FB = -1)	
+	
+	   12 (FB = 0)
+
+
+rotacion sinple a la izquierda al nodo del subarbol derecho de 10
+singleLeftRotation(15)		12 (FB = 1)
+					15 (FB = 0)
+
+se lo asigno por la derecha al nodo
+singleRightRotation(10)
+
+
+
+
+
+

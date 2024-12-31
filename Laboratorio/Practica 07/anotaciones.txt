@@ -1,0 +1,102 @@
+-- ALGORITMO DEL COMPARETO() --
+CompareTo
+
+T info1
+T info2
+
+info1.compareTo(info2):
+	retorna un valor > 0 si info1 > info2
+	retorna un valor < 0 si info1 < info2
+	retorna un valor de 0 si info1 == info2
+
+
+
+-- ALGORITMO DEL MÉTODO SEARCH() --
+
+			10
+
+	5				15
+
+2		8				20
+
+
+searchNode(clave)
+  si la clave es null o la raíz es null --> no hay árbol --> excepción
+  sino...
+    // Nodo del subárbol donde busco la clave
+    return searchNodeRec(nodo, clave) // Primera vez: searchNodeRec(raiz, clave)
+    
+
+searchNodeRec(nodo, clave)
+  la recursividad se parara cuando la clave sea null
+
+
+-- ALGORITMO DEL MÉTODO DE BÚSQUEDA EN PREORDEN --
+
+			10
+
+	5				15
+
+2		8				20
+
+Preorden: 10 5 2 8 15 20
+
+
+preOrder()
+  return preOrderRec(raiz)
+
+
+preOrderRec(nodo)
+  si nodo == null return ""
+  sino return nodo.toString() + "\t" + preOrderRec(nodo.getLeft()) + preOrderRec(nodo.getRight())
+
+
+preOrden --> preOrdenRec(10)
+		10 tab + preOrdenRec(5) + preOrden(15)
+			 5 tab preOrdenRec(2) + preOrdenRec(8)
+			       2 tab preOrdenRec(null) + preOrdenRec(null)
+				     ""
+
+
+
+-- ALGORITMO DEL MÉTODO ADD() --
+
+add(clave)
+  si clave es null --> excepción
+  
+  // si el árbol es null (raiz == null)...
+  si raiz == null
+    raiz = nuevo nodo con la clave
+    return true
+  return addRec(raiz, clave)
+
+
+addRec(nodo, clave)
+  nodo == clave return false
+  si clave > nodo
+    si el nodo de la derecha es null --> set del nuevo nodo por la derecha y return true
+    sino retornar el volver a llamar al recursivo con el subarbol derecho
+  si clave < nodo
+    si el nodo de la izquierda es null --> set del nuevo nodo por la izquierda y return true
+    sino retornar el volver a llamar al recursivo con el subarbol izquierdo
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+

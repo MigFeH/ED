@@ -1,0 +1,63 @@
+si lo encuentro entonces:
+  lo borro (tabladeposicion.remove())
+end
+
+--- REDIRSPERSION (aumentar) ---
+minlf --> minimo
+maxlf --> maximo
+
+En el método add y despues de añadir
+  si factorCarga() > maxlf entonces
+    redispersion()
+  end_if	
+
+
+
+--- REDISPERSION INVERSA (disminuir) ---
+En el método remove y despues de borrar
+  si factorCarga() < minlf entonces
+    redispersionInversa()
+  end_if
+
+
+
+redirspersion()
+  en una variable auxiliar (de tipo hashNode<t> aux[] = tabla) almaceno la tabla vieja
+  nuevo_tamaño = siguiente_primo(hashSize*2); // hay que comprobar si el un numero primo, si no lo es, el nuevo tamaño será el siguiente primo
+  inicializar la propiedad tabla de la clase con el nuevo tamaño
+  numElementos = 0
+  hashSize = nuevo_tamaño
+
+  // recorremos la tabla nodo por nodo y si el estado es lleno => se copia a la nueva tabla añadiendolo 
+
+  desde la posicion 0 hasta el tamaño_anterior-1 de la tabla hacer
+    si el estado es LLENO
+      add(elemento /* el elemento es la info de la posicion */)
+
+
+redirspersion_inversa()
+  en una variable auxiliar (de tipo hashNode<t> aux[] = tabla) almaceno la tabla vieja
+  nuevo_tamaño = siguiente_primo(hashSize/2); // hay que comprobar si el un numero primo, si no lo es, el nuevo tamaño será el anterior primo
+  inicializar la propiedad tabla de la clase con el nuevo tamaño
+  numElementos = 0
+  hashSize = nuevo_tamaño
+
+  // recorremos la tabla nodo por nodo y si el estado es lleno => se copia a la nueva tabla añadiendolo 
+
+  desde la posicion 0 hasta el tamaño_anterior-1 de la tabla hacer
+    si el estado es LLENO
+      add(elemento /* el elemento es la info de la posicion */)
+
+
+
+
+
+
+
+
+
+
+
+
+
+

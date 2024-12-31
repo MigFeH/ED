@@ -1,0 +1,41 @@
+elemento1.compareTo(elemento2)
+	Devuelve < 0 --> cuando elemento1 < elemento2
+	Devuelve > 0 --> cuando elemento1 > elemento2
+	Devuelve == 0 --> cuando elemento1 == elemento2
+
+
+filtradoAscendente():
+	Para que el bucle pare: (posicion_hijo == 0 || padre <= hijo)
+	
+	Para que el bucle continúe: la negación de la condición de parada, es decir:
+		Mientras (posicion_hijo != 0 && padre > hijo)
+			1.Intercambiar
+			2.Calcular las nuevas posiciones de hijo y padre
+
+filtradoDescendente():
+	pos_padre
+	pos_hijo_der
+	pos_hijo_izq
+
+	¿Cuándo paro? --> pos_hijo_izq >= numElementos ||
+				hijo_izq == null ||
+				hijo_izqu >= padre && hijo_der >= padre
+
+	mientras(pos_hijo_izq < numElementos && hijo_izq != null
+		&& (hijo_izq < padre || hijo_der < padre))
+
+		si(hijo_izq < hijo_der && hijo_izq < padre)
+			intercambio
+			pos_padre = pos_hijo_izq
+		sino si(hijo_der < padre)
+			intercambio
+			pos_padre = pos_hijo_der
+
+		calcular pos_hijo_der
+		calcular pos_hijo_izq
+
+
+
+
+	
+

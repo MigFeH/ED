@@ -1,0 +1,83 @@
+Añadir en una cola de prioridad
+	Comprobaciones iniciales
+	Añadir el elemento en la última posición del vector
+	Incrementar el número de elementos
+	Filtrado ascendente
+
+Eliminar en una cola de prioridad
+	Comprobaciones iniciales
+	pos = buscar el elemento para determinar su posición O(n) // porque es buscar por un vector
+	Sustituto = último elemento del vector
+	Reemplazar por sustituto
+	Decrementar numero de elementos
+	Si el sustituto > elemento a eliminar
+		filtrado descendente // porque es ir hacia abajo
+	Sino
+		filtrado ascendente // porque es ir hacue arriba
+
+Sacar
+	aux = raíz (lo que está en la posición 0)
+	Sustituto = último elemento del vector
+	Reemplazar por sustituto
+	Decrementar numero de elementos
+	filtrado descendente // porque es ir hacia abajo
+	devolver aux
+
+CambiarPrioridad(pos y elemento) // no se decrementa el número de elementos
+	Comprobaciones iniciales
+	la posicion del elemento me la da pos
+	Sustituto = el elemento pasado por parámetro
+	Reemplazar por sustituto
+	Si el sustituto > elemento a eliminar
+		filtrado descendente // porque es ir hacia abajo
+	Sino
+		filtrado ascendente // porque es ir hacue arriba
+
+
+Filtrado ascendente (posicion a partir de la cual se realiza el filtrado ascendente) // vamos de abajo a arriba
+	pos_hijo = pos; // tenemos el hijo (nos dan siempre el izquierdo) y tenemos que calcular el padre
+	pos_padre = (pos_hijo-1) / 2; // tenemos que calcular la posición del padre porque tenemos que ir de abajo a arriba
+	
+	// Condición de parada:
+	// 1) hijo <= padre
+	// 2) pos_hijo = 0; // estaríamos en la raíz
+	
+	mientras (contenido_hijo > contenido_padre && pos_hijo != 0)
+		intercambio
+		pos_hijo = pos_padre;
+		pos_padre = (pos_hijo-1) / 2;
+	fin mientras
+
+Filtrado descendente (posicion a partir de la cual se realiza el filtrado descendente) // vamos de arriba a abajo
+	pos_padre = pos; // tenemos el padre y tenemos que calcular los hijos
+	pos_hijo_izq = 2 * pos_padre + 1;
+	pos_hijo_der = 2 * pos_padre + 2;	
+
+	// Condición de parada:
+	// 1) si los dos hijos son mayores
+	// 2) si la posición del hijo izquierdo es incorrecta (por tanto, tambien lo es la del hijo derecho)
+	// 3) si el hijo izquierdo es null
+	
+	mientras (condicion)
+		intercambio con el menor de los hijos
+		pos_padre = posición del hijo menor;
+		pos_hijo_izq = 2 * pos_padre + 1;
+		pos_hijo_der = 2 * pos_padre + 2;
+	fin mientras
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

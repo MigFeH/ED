@@ -1,0 +1,57 @@
+--Método remove --
+clave es null o arbol vacío --> nullPointer
+clave no existe --> elemento no existente
+true si consigue elemento
+false sino
+
+
+remove(clave)
+	si la clave es null --> nullPointer
+	si el árbol es null (árbol vacío) --> false
+	si la clave no existe --> el elemento no está presente en la estructura
+	si existe...
+		raiz = removeRec(raiz, clave)
+		return true
+
+
+removeRec(nodo, clave) --> retorna un nodo actualizado con el borrado
+	si clave > nodo // el elemento a borrar está en el subarbol derecho
+		nuevo_nodo = removeRec(subárbol derecho, clave) // devuelve el subarbol derecho modificado
+		asignar nodo por la derecha lo que me devuelve el removeR (nuevo_nodo)
+		devuelvo el nodo
+	sino
+		si clave < nodo // el elemento a borrar está en el subarbol izquierdo
+			nuevo_nodo = removeRec(subárbol derecho, clave) // devuelve el subarbol izquierdo modificado
+			asignar nodo por la izquierda lo que me devuelve el removeR (nuevo_nodo)
+			devuelvo el nodo
+
+		sino // hemos encontrado la clave (el nodo) y el algoritmo recursivo termina
+			si nodo por la derecha es null
+				devuelvo la izquierda
+
+			sino
+				si el nodo por la izquierda es null
+					devuelco la derecha
+				sino // ni la derecha ni izquierda son null
+					mayor = buscar el mayor del subarbol izquierdo del nodo
+					sustituir la info del nodo por la info del nodo buscado
+					nuevo_nodo = removeRec(subarbol izquierdo, mayor.getInfo()))
+					asignar nodo por la izquierda lo que me devuelve el removeRec (nuevo_nodo)
+					devuelvo nodo
+					
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
